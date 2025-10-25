@@ -1,19 +1,7 @@
 <?php
 
-namespace Tests\Feature;
+it('will not produce any smoke', function () {
+    $routes = ['/', '/login', '/register'];
 
-// use Illuminate\Foundation\Testing\RefreshDatabase;
-use Tests\TestCase;
-
-class ExampleTest extends TestCase
-{
-    /**
-     * A basic test example.
-     */
-    public function test_the_application_returns_a_successful_response(): void
-    {
-        $response = $this->get('/');
-
-        $response->assertStatus(200);
-    }
-}
+    visit($routes)->assertNoSmoke();
+});
