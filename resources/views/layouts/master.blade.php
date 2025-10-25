@@ -28,11 +28,53 @@
                         <a @class(['nav-link', 'active' => request()->routeIs('posts.*')]) href="{{ route('posts.index') }}">Posts</a>
                     </li>
                 </ul>
+                <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                    @auth
+                        <li class="nav-item">
+                            <form action="{{ route('logout') }}" method="post">
+                                @csrf
+                                <a class="nav-link" href="#" onclick="this.closest('form').submit()">
+                                    Logout
+                                </a>
+                            </form>
+                        </li>
+                    @else
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('login') }}">
+                                Login
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('register') }}">
+                                Register
+                            </a>
+                        </li>
+                    @endauth
+                </ul>
             </div>
         </div>
     </nav>
 </header>
 <main class="py-5">
+    <div class="container">
+        @unless($errors->isEmpty())
+            <div class="alert alert-danger" role="alert">
+                @foreach($errors->all() as $error)
+                    <div>{{ $error }}</div>
+                @endforeach
+            </div>
+        @endunless
+        @if(session('success'))
+            <div class="alert alert-success" role="alert">
+                {{ session('success') }}
+            </div>
+        @endif
+        @if(session('danger'))
+            <div class="alert alert-danger" role="alert">
+                {{ session('danger') }}
+            </div>
+        @endif
+    </div>
     @yield('content')
 </main>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
