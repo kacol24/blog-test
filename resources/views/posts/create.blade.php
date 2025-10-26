@@ -2,6 +2,7 @@
 
 @section('content')
     <div class="container">
+        <h1>Create New Post</h1>
         <form action="{{ route('posts.store') }}" method="POST" novalidate>
             @csrf
             <div class="mb-3">

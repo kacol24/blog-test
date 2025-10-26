@@ -9,7 +9,9 @@ class PostController extends Controller
 {
     public function index()
     {
-        $posts = Post::paginate(10);
+        $posts = Post::query()
+                     ->mine()
+                     ->paginate(10);
 
         return view('posts.index', compact('posts'));
     }
@@ -31,21 +33,25 @@ class PostController extends Controller
 
         Post::create(
             array_merge(
-                ['user_id' => auth()->id() ?? 0],
+                ['user_id' => auth()->id()],
                 $validated
             )
         );
 
-        return to_route('posts.index')->withSuccess('Success save post!');
+        return to_route('posts.index')->withSuccess('Post created successfully!');
     }
 
     public function edit(Post $post)
     {
+        \Gate::authorize('view', $post);
+
         return view('posts.edit', compact('post'));
     }
 
     public function update(Request $request, Post $post)
     {
+        \Gate::authorize('update', $post);
+
         $validated = $request->validate([
             'title'       => 'required',
             'content'     => '',
@@ -56,13 +62,15 @@ class PostController extends Controller
 
         $post->update($validated);
 
-        return to_route('posts.index')->withSuccess('Successfully updated!');
+        return to_route('posts.index')->withSuccess('Post updated successfully!');
     }
 
     public function destroy(Post $post)
     {
+        \Gate::authorize('delete', $post);
+
         $post->delete();
 
-        return to_route('posts.index')->withSuccess('Deleted!');
+        return to_route('posts.index')->withSuccess('Post deleted successfully!');
     }
 }

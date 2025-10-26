@@ -54,7 +54,7 @@
             </tr>
             </thead>
             <tbody>
-            @foreach($posts as $post)
+            @forelse($posts as $post)
                 <tr>
                     <td>
                         {{ $post->id }}
@@ -89,7 +89,11 @@
                         </div>
                     </td>
                 </tr>
-            @endforeach
+            @empty
+                <tr>
+                    <td colspan="7">No posts found</td>
+                </tr>
+            @endforelse
             </tbody>
         </table>
         {!! $posts->links() !!}
