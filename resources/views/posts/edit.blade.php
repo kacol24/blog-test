@@ -38,7 +38,7 @@
             <div class="mb-3">
                 <label for="external_id" class="form-label">External ID</label>
                 <input type="text" class="form-control" id="external_id" name="external_id" required
-                       value="{{ $post->source }}">
+                       value="{{ $post->external_id }}">
             </div>
             <div class="d-flex">
                 <button type="submit" class="btn btn-primary me-1">
