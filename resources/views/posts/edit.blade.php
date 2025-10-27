@@ -32,7 +32,7 @@
                 <select class="form-select" id="source" name="source">
                     <option @selected($post->source == 'Internal')>Internal</option>
                     <option @selected($post->source == 'JSON Placeholder')>JSON Placeholder</option>
-                    <option @selected($post->option == 'Fake Store API')>Fake Store API</option>
+                    <option @selected($post->source == 'Fake Store API')>Fake Store API</option>
                 </select>
             </div>
             <div class="mb-3">
